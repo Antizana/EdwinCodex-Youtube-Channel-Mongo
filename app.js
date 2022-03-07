@@ -37,7 +37,16 @@ const mongoose = require("mongoose");
 
 mongoMain().catch((err) => console.log(err));
 async function mongoMain() {
-  await mongoose.connect("mongodb://localhost:27017/test");
+  await mongoose.connect("mongodb://localhost:27017/mongo-proj", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  //   const db = mongoose.connection;
+  //   db.on("error", console.error.bind(console, "connection error: "));
+  //   db.once("open", () => {
+  //     console.log("Connected successfully");
+  //   });
 }
 
 app.listen(PORT, HOST, () => {
