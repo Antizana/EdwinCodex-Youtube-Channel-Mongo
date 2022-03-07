@@ -1,24 +1,39 @@
-// Full Documentation - https://docs.turbo360.co
-const express = require('express')
-const router = express.Router()
+const express = require("express");
 
-/*  This is a sample API route. */
+//router
+const router = express.Router();
 
-router.get('/:resource', (req, res) => {
-  res.json({
-    confirmation: 'success',
-    resource: req.params.resource,
-    query: req.query // from the url query string
+const Profile = require("../models/Profile");
+
+router.get("/profile", (req, res) => {
+  // return res.json({ status: 200 });
+  Profile.find()
+    .then((profiles) => {
+      res.json({
+        confirmation: "success",
+        data: profiles,
+      });
+    })
+    .catch((err) => {
+      res.json({
+        confirmation: "fail",
+        message: err.message,
+      });
+    });
+});
+
+module.exports = router;
+
+Profile.find()
+  .then((profiles) => {
+    res.json({
+      confirmation: "success",
+      data: profiles,
+    });
   })
-})
-
-router.get('/:resource/:id', (req, res) => {
-  res.json({
-    confirmation: 'success',
-    resource: req.params.resource,
-    id: req.params.id,
-    query: req.query // from the url query string
-  })
-})
-
-module.exports = router
+  .catch((err) => {
+    res.json({
+      confirmation: "fail",
+      message: err.message,
+    });
+  });
